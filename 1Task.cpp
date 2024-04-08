@@ -31,7 +31,7 @@ int pow_mod(int a, int x, int p) {
 }
 
 int main() {
-    int a, x, p, b, y, resax, resby;
+    int a, x, p, b, y;
     
     cout << "Введите a: ";
     cin >> a;
@@ -68,6 +68,5 @@ int main() {
             }
         }
     }
-    
     return 0;
 }
