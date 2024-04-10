@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cmath>
+#include <string>
+#include <cctype>
 using namespace std;
 // Функция для проверки простоты числа
 bool is_prime(int n) {
@@ -15,7 +17,18 @@ bool is_Ferm(int a, int x, int p) {
     }
     return false;
 }
-
+bool is_Int (string n) {
+    if (n[0] == '-') {
+        n[0] = '1';
+    }
+    for (char c : n) {
+        if (!isdigit(c)) {
+            cout << "Некорректные данные" << endl;
+            return false;
+        }
+    }
+    return true;
+}
 // Функция для вычисления a^x mod p используя метод двоичного разложения степени
 int pow_mod(int a, int x, int p) {
     int result = 1;
@@ -31,23 +44,39 @@ int pow_mod(int a, int x, int p) {
 }
 
 int main() {
+    string astr, xstr, pstr, bstr, ystr;
     int a, x, p, b, y;
     
     cout << "Введите a: ";
-    cin >> a;
-    
+    cin >> astr;
+    if (!is_Int(astr))  {
+        return 1;
+    };
+    a = stoi(astr);
     cout << "Введите x: ";
-    cin >> x;
-    
+    cin >> xstr;
+    if (!is_Int(xstr))  {
+        return 1;
+    };
+    x = stoi(xstr);
     cout << "Введите b: ";
-    cin >> b;
-    
+    cin >> bstr;
+    if (!is_Int(bstr))  {
+        return 1;
+    };
+    b = stoi(bstr);
     cout << "Введите y: ";
-    cin >> y;
-
+    cin >> ystr;
+    if (!is_Int(ystr))  {
+        return 1;
+    };
+    y = stoi(ystr);
     cout << "Введите p (простое число): ";
-    cin >> p;
-    
+    cin >> pstr;
+    if (!is_Int(pstr))  {
+        return 1;
+    };
+    p = stoi(pstr);
     // Проверяем, простое ли число p
     if (!is_prime(p)) {
         cout << "Число p должно быть простым." << endl;
