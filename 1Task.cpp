@@ -59,6 +59,14 @@ int main() {
         if (!is_Ferm(b,y,p)) {
             cout << "Для" << b << "^" << y << " mod " << p << " теорема Ферма не выполняется" << endl;
         }
+        if (is_Ferm(a,x,p) && is_Ferm(b,y,p)) {
+            if (pow_mod(a,x%(p-1),p)==pow_mod(b,y%(p-1),p)) {
+                cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x%(p-1),p) << ") = (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y%(p-1),p) << ")" << endl;
+            }
+            else {
+                cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x%(p-1),p) << ") != (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y%(p-1),p) << ")" << endl;
+            }
+        }
         else {
             if (pow_mod(a,x,p)==pow_mod(b,y,p)) {
                 cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x,p) << ") = (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y,p) << ")" << endl;
