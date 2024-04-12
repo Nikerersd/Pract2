@@ -4,18 +4,31 @@
 #include <cctype>
 using namespace std;
 // Функция для проверки простоты числа
-bool is_prime(int n) {
-    if (n <= 1) return false;
-    for (int i = 2; i <= sqrt(n); ++i) {
-        if (n % i == 0) return false;
+bool is_prime(int p) {
+    if (p <= 1) return false;
+    for (int i = 2; i < p; i++) {
+        if (p % i == 0) return false;
     }
     return true;
 }
-bool is_Ferm(int a, int x, int p) {
-    if (a%p!=0 && a>=1) {
+bool is_Eiler(int a, int x, int p) {
+    if (abs(a)%p!=0) {
         return true;
     }
     return false;
+}
+int Eiler(int p) {
+    int result = p;
+    for (int i = 2; i * i <= p; i++) {
+        if (p % i == 0) {
+            while (p % i == 0)
+                p /= i;
+            result -= result / i;
+        }
+    }
+    if (p > 1)
+        result -= result / p;
+    return result;
 }
 bool is_Int (string n) {
     if (n[0] == '-') {
@@ -82,14 +95,14 @@ int main() {
         cout << "Число p должно быть простым." << endl;
     } 
     else {
-        if (!is_Ferm(a,x,p)) {
-            cout << "Для" << a << "^" << x << " mod " << p << " теорема Ферма не выполняется" << endl;
+        if (!is_Eiler(a,x,p)) {
+            cout << "Для" << a << "^" << x << " mod " << p << " теорема Эйлера не выполняется" << endl;
         }
-        if (!is_Ferm(b,y,p)) {
-            cout << "Для" << b << "^" << y << " mod " << p << " теорема Ферма не выполняется" << endl;
+        if (!is_Eiler(b,y,p)) {
+            cout << "Для" << b << "^" << y << " mod " << p << " теорема Эйлера не выполняется" << endl;
         }
-        if (is_Ferm(a,x,p) && is_Ferm(b,y,p)) {
-            if (pow_mod(a,x%(p-1),p)==pow_mod(b,y%(p-1),p)) {
+        if (is_Eiler(a,x,p) && is_Eiler(b,y,p)) {
+            if (pow_mod(a,x%Eiler(p),p)==pow_mod(b,y%Eiler(p),p)) {
                 cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x%(p-1),p) << ") = (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y%(p-1),p) << ")" << endl;
             }
             else {
