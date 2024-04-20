@@ -6,7 +6,7 @@ using namespace std;
 // Функция для проверки простоты числа
 bool is_prime(int p) {
     if (p <= 1) return false;
-    for (int i = 2; i < p; i++) {
+    for (int i = 2; i <= sqrt(p); i++) {
         if (p % i == 0) return false;
     }
     return true;
@@ -84,7 +84,7 @@ int main() {
         return 1;
     };
     y = stoi(ystr);
-    cout << "Введите p (простое число): ";
+    cout << "Введите p: ";
     cin >> pstr;
     if (!is_Int(pstr))  {
         return 1;
@@ -92,9 +92,6 @@ int main() {
     p = stoi(pstr);
     // Проверяем, простое ли число p
     if (!is_prime(p)) {
-        cout << "Число p должно быть простым." << endl;
-    } 
-    else {
         if (!is_Eiler(a,x,p)) {
             cout << "Для" << a << "^" << x << " mod " << p << " теорема Эйлера не выполняется" << endl;
         }
@@ -103,6 +100,30 @@ int main() {
         }
         if (is_Eiler(a,x,p) && is_Eiler(b,y,p)) {
             if (pow_mod(a,x%Eiler(p),p)==pow_mod(b,y%Eiler(p),p)) {
+                cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x%Eiler(p),p) << ") = (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y%Eiler(p),p) << ")" << endl;
+            }
+            else {
+                cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x%Eiler(p),p) << ") != (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y%Eiler(p),p) << ")" << endl;
+            }
+        }
+        else {
+            if (pow_mod(a,x,p)==pow_mod(b,y,p)) {
+                cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x,p) << ") = (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y,p) << ")" << endl;
+            }
+            else {
+                cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x,p) << ") != (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y,p) << ")" << endl;
+            }
+        }
+    } 
+    else {
+        if (!is_Eiler(a,x,p)) {
+            cout << "Для" << a << "^" << x << " mod " << p << " теорема Ферма не выполняется" << endl;
+        }
+        if (!is_Eiler(b,y,p)) {
+            cout << "Для" << b << "^" << y << " mod " << p << " теорема Ферма не выполняется" << endl;
+        }
+        if (is_Eiler(a,x,p) && is_Eiler(b,y,p)) {
+            if (pow_mod(a,x%(p-1),p)==pow_mod(b,y%(p-1),p)) {
                 cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x%(p-1),p) << ") = (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y%(p-1),p) << ")" << endl;
             }
             else {
