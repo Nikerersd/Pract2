@@ -11,12 +11,21 @@ bool is_prime(int p) {
     }
     return true;
 }
+
+int NOD (int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+    return NOD(b , a % b);
+}
+
 bool is_Eiler(int a, int x, int p) {
-    if (abs(a)%p!=0) {
+    if (NOD(a,p) == 1) {
         return true;
     }
     return false;
 }
+
 int Eiler(int p) {
     int result = p;
     for (int i = 2; i * i <= p; i++) {
@@ -30,6 +39,7 @@ int Eiler(int p) {
         result -= result / p;
     return result;
 }
+
 bool is_Int (string n) {
     if (n[0] == '-') {
         n[0] = '1';
@@ -42,6 +52,7 @@ bool is_Int (string n) {
     }
     return true;
 }
+
 // Функция для вычисления a^x mod p используя метод двоичного разложения степени
 int pow_mod(int a, int x, int p) {
     int result = 1;
@@ -100,6 +111,7 @@ int main() {
         }
         if (is_Eiler(a,x,p) && is_Eiler(b,y,p)) {
             if (pow_mod(a,x%Eiler(p),p)==pow_mod(b,y%Eiler(p),p)) {
+                cout << Eiler(p) << endl;
                 cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x%Eiler(p),p) << ") = (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y%Eiler(p),p) << ")" << endl;
             }
             else {
