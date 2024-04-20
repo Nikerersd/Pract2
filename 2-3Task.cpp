@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <tuple>
 
 using namespace std;
 
@@ -34,8 +36,24 @@ int main() {
     cout << "Введите c и m через пробел" << endl;
     cin >> c >> m;
     if (ObratnCh(c,m) != -1) {
-        d = ObratnCh(c, m);
-        cout << "d = " << d << endl;
+        d = ObratnCh (c, m);
+        cout << "Обратное число " << c << "^(-1) mod " << m << " = " << d << endl;
+
+        cout << "Остаток (r)\tX\t\tY\tЧастное (q)" << endl;
+        vector<tuple<int, int, int, int>> table;
+        int a = c, b = m;
+        while (b != 0) {
+            int q = a / b;
+            int r = a % b;
+            int x, y;
+            NODsKoef(a, b, x, y);
+            table.push_back({r, x, y, q});
+            a = b;
+            b = r;
+        }
+        for (auto n : table) {
+            cout << get<0>(n) << "\t\t" << get<1>(n) << "\t\t" << get<2>(n) << "\t\t" << get<3>(n) << endl;
+        }
     }
     else {
         cout << "Для данных значений обратного числа d по модулю не существует." << endl;
