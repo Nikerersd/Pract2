@@ -2,8 +2,9 @@
 #include <cmath>
 #include <string>
 #include <cctype>
+
 using namespace std;
-// Функция для проверки простоты числа
+
 bool is_prime(int p) {
     if (p <= 1) return false;
     for (int i = 2; i <= sqrt(p); i++) {
@@ -53,10 +54,9 @@ bool is_Int (string n) {
     return true;
 }
 
-// Функция для вычисления a^x mod p используя метод двоичного разложения степени
 int pow_mod(int a, int x, int p) {
     int result = 1;
-    a = a % p; // Уменьшаем a по модулю p
+    a = a % p;
     while (x > 0) {
         if (x % 2 == 1) {
             result = (result * a) % p;
@@ -101,7 +101,7 @@ int main() {
         return 1;
     };
     p = stoi(pstr);
-    // Проверяем, простое ли число p
+
     if (!is_prime(p)) {
         if (!is_Eiler(a,x,p)) {
             cout << "Для" << a << "^" << x << " mod " << p << " теорема Эйлера не выполняется" << endl;
@@ -111,7 +111,6 @@ int main() {
         }
         if (is_Eiler(a,x,p) && is_Eiler(b,y,p)) {
             if (pow_mod(a,x%Eiler(p),p)==pow_mod(b,y%Eiler(p),p)) {
-                cout << Eiler(p) << endl;
                 cout << " (" << a << "^" << x << " mod " << p << " = " << pow_mod(a,x%Eiler(p),p) << ") = (" << b << "^" << y << " mod " << p << " = " << pow_mod(b,y%Eiler(p),p) << ")" << endl;
             }
             else {

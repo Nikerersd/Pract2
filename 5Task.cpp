@@ -20,8 +20,8 @@ int main() {
     cout << "Введите этажи нужного числа: ";
     cin >> a >> b >> c;
 
-    int st = pow_mod(b, c, 4);
-    int result = pow_mod(a, st, 10);
-    cout << result << endl;
+    int VrCh = pow_mod(a, b, 10);
+    int result = pow_mod(VrCh, c, 10);
+    cout << "Последняя цифра: " << result << endl;
     return 0;
 }

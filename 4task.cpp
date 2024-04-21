@@ -78,6 +78,23 @@ long long pow_mod(long long a, long long x, long long p) {
     return result;
 }
 
+int encoding(string message, int N, int OpenKey, vector<int>& encoded) {
+    for (char c : message) {
+        long long ASC = static_cast<long long>(c);
+        if (ASC > N) {
+            return -1;
+        }
+        long long encr = pow_mod(ASC, OpenKey, N);
+        encoded.push_back(encr);
+    }
+    return 0;
+}
+
+void decoding(long long encSimv, int N, int ClosedKey, vector<int>& decoded) {
+    long long decr = pow_mod(encSimv, ClosedKey, N);
+        decoded.push_back(decr);
+}
+
 int main() {
     srand(time(0));
     int p=10, q=10;
@@ -88,7 +105,7 @@ int main() {
         q = Random (1000, 7000);
     }
     int N = p*q;
-    int Eilr = (p-1)*(q-1);
+    int Eilr = Eiler(N);
     int OpenKey = Random(1000, Eilr);
     while (NOD(OpenKey,Eilr) !=1 ) {
         OpenKey = Random(1000, Eilr);
@@ -98,20 +115,15 @@ int main() {
     string message;
     getline(cin, message);
     vector <int> encoded;
-    for (char c : message) {
-        long long ASC = static_cast<int>(c);
-        if (ASC > N) {
-            cout << "Error!" << endl;
-            return -1;
-        }
-        long long encr = pow_mod(ASC, OpenKey, N);
-        encoded.push_back(encr);
+    int enc = encoding(message, N, OpenKey, encoded);
+    if (enc == -1) {
+        cout << "Error!" << endl;
+        return -1;
     }
     vector <int> decoded;
     cout << "Encrypted text: " << endl;
     for (long long i : encoded) {
-        long long decr = pow_mod(i, ClosedKey, N);
-        decoded.push_back(decr);
+        decoding(i, N, ClosedKey, decoded);
         cout << i << " ";
     }
     cout << endl;
